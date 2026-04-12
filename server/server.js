@@ -3,20 +3,29 @@ const sequelize = require('./config/database');
 require('dotenv').config();
 require('./models');
 
+//Import routes
+const authRoutes = require('./routes/authRoutes');
+
 const app = express()
-const PORT  = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
-
+//Middleware
 app.use(express.json());
 
-app.get('/', (req,res) => {
-    res.json({message : 'Flashcard API runing. ' });
+//Health Check
+app.get('/', (req, res) => {
+    res.json({ message: 'Flashcard API runing. ' });
 });
 
+
+//Mount
+app.use('/api/auth', authRoutes);
+
+// DB Connection
 sequelize.authenticate()
     .then(() => {
         console.log('Database connected.');
-        return sequelize.sync({alter: true});
+        return sequelize.sync({ alter: true });
     })
     .then(() => {
         app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
