@@ -6,6 +6,7 @@ require('./models');
 //Import routes
 const authRoutes = require('./routes/authRoutes');
 const deckRoutes = require('./routes/deckRoutes');
+const cardRoutes = require('./routes/cardRoutes');
 
 const app = express()
 const PORT = process.env.PORT || 3001;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 //Mount
 app.use('/api/auth', authRoutes);
 app.use('/api/decks', deckRoutes);
+app.use('/api/cards', cardRoutes)
 
 // DB Connection
 sequelize.authenticate()
