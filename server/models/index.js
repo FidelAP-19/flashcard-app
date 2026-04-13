@@ -21,4 +21,7 @@ StudySession.belongsTo( Deck, { foreignKey: 'deck_id'});
 User.belongsToMany( Deck, { through: SavedDeck, foreignKey: 'user_id', as: 'SavedDecks'});
 Deck.belongsToMany( User, { through: SavedDeck, foreignKey: 'deck_id', as: 'SavedByUsers'});
 
+SavedDeck.belongsTo(Deck, { foreignKey: 'deck_id' });
+SavedDeck.belongsTo(User, { foreignKey: 'user_id' });
+
 module.exports = { User, Deck, Card, SavedDeck, StudySession };
