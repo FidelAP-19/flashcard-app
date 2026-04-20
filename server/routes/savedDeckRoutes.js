@@ -32,4 +32,13 @@ router.delete('/:deckId', async (req, res) => {
   }
 });
 
+router.get('/analytics/most-saved', async (req, res) => {
+    try {
+      const data = await savedDeckService.getMostSavedPublicDecks();
+      res.json(data);
+    } catch (err) {
+      res.status(err.status || 500).json({ error: err.message });
+    }
+  });
+
 module.exports = router;

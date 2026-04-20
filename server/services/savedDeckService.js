@@ -31,4 +31,28 @@ const unsaveDeck = async (userId, deckId) => {
   return { message: 'Deck removed from saved' };
 };
 
-module.exports = { getSavedDecks, saveDeck, unsaveDeck };
+const getMostSavedPublicDecks = async () => {
+    const { SavedDeck, Deck, User } = require('../models');
+
+    const results = await SavedDeck.findAll({
+        include: [{
+          model: Deck,
+          where: { is_public: true },
+          include: [{ model: User, attributes: ['id', 'name'] }],
+        }],
+      });
+    
+      const counts = results.reduce((acc, entry) => {
+        const deckId = entry.deck_id;
+        const deck = entry.Deck;
+        if (!acc[deckId]) acc[deckId] = { deck, count: 0 };
+        acc[deckId].count += 1;
+        return acc;
+      }, {});
+    
+      return Object.values(counts)
+        .map(({ deck, count }) => ({ deck, saves: count }))
+        .sort((a, b) => b.saves - a.saves);
+}
+
+module.exports = { getSavedDecks, saveDeck, unsaveDeck, getMostSavedPublicDecks };
