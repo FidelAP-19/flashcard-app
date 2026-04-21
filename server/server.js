@@ -1,7 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./config/database');
 require('dotenv').config();
 require('./models');
+
+const app = express()
+const PORT = process.env.PORT || 3001;
+
+
+//Middleware
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
 //Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -10,11 +22,6 @@ const cardRoutes = require('./routes/cardRoutes');
 const savedDeckRoutes = require('./routes/savedDeckRoutes');
 const studySessionRoutes = require('./routes/studySessionRoutes');
 
-const app = express()
-const PORT = process.env.PORT || 3001;
-
-//Middleware
-app.use(express.json());
 
 //Health Check
 app.get('/', (req, res) => {
