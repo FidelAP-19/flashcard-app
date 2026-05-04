@@ -51,7 +51,7 @@ const updateCard = async (id, data, userId) => {
 };
 
 const deleteCard = async (id, userId) => {
-    const card = cardRepository.findById(id);
+    const card = await cardRepository.findById(id);
     if(!card){
         const error = new Error('Card does not exist');
         error.status = 404;

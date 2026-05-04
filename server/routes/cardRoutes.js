@@ -43,7 +43,7 @@ router.put('/:id', async(req,res) => {
 
 router.delete('/:id', async (req,res) => {
     try {
-        const result = cardService.deleteCard(req.params.id, req.user.id);
+        const result = await cardService.deleteCard(req.params.id, req.user.id);
         res.json(result)
     } catch (err) {
         res.status(err.message || 500).json({error: err.message});

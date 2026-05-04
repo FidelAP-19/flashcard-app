@@ -34,7 +34,7 @@ router.get('/mine', async (req, res) => {
     }
 });
 
-router.get('/:id', async (res,req) => {
+router.get('/:id', async (req,res) => {
     try{
         const deck = await deckService.getDeckById(req.params.id);
         res.json(deck)
