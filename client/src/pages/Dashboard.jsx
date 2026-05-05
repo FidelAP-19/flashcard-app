@@ -7,7 +7,7 @@ const Dashboard = () => {
  // const [ statusBreakdown, setStatusBreakdown ] = useState(null);
     const [streak, setStreak] = useState(null);
     const [mostStudied, setMostStudied] = useState([]);
-    const [averageScore, setAverageScore] = useState(null);
+    const [averageScore, setAverageScore] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const Dashboard = () => {
 
         <div style={{ border: '1px solid #333', borderRadius: '8px', padding: '1.5rem' }}>
           <h3>Average Score Per Deck</h3>
-          {averageScore && averageScore.length > 0 ? (
+          {Array.isArray(averageScore) && averageScore.length > 0 ? (
             averageScore.slice(0, 3).map((item, index) => (
             <p key={index}>
             <strong>{item.title}</strong> — avg {item.average_score} correct per session ({item.sessions} sessions)
