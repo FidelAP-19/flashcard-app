@@ -9,6 +9,12 @@ const getAuthHeaders = () => {
   return { Authorization: `Bearer ${token}` };
 };
 
+export const register = (data) =>
+  API.post('/auth/register', data);
+
+export const login = (data) =>
+  API.post('/auth/login', data);
+
 // Decks
 export const getMyDecks = () =>
   API.get('/decks/mine', { headers: getAuthHeaders() });
