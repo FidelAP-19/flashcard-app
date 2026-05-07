@@ -11,9 +11,12 @@ const PORT = process.env.PORT || 3001;
 //Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+    origin: [
+      'http://localhost:5173',
+      'https://flashcard-app-psi-eight.vercel.app',
+    ],
+    credentials: true,
+  }));
 
 //Import routes
 const authRoutes = require('./routes/authRoutes');
